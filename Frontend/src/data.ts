@@ -42,7 +42,7 @@ export const sampleProducts: Product [] = [
         slug: 'Gucci Slim shirt',
         category: 'shirt',
         image: '../images/p4.jpg',
-        price: 125,
+        price: 725,
         countInStock: 13,
         brand: 'Gucci',
         rating: 4.0,
