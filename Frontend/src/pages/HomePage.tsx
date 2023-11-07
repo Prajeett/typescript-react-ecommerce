@@ -1,21 +1,27 @@
 import { Col, Row } from "react-bootstrap";
-import { sampleProducts } from "../data";
-import { Link } from "react-router-dom";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import ProductItem from "../components/ProductItem";
+import { Helmet } from "react-helmet-async";
+import { useGetProductQuery } from "../hooks/productHook";
+import { getError } from "../utils";
+import { ApiError } from "../types/ApiError";
 
 const HomePage = () => {
-  return (
+  const { data: products, isLoading, error } = useGetProductQuery();
+
+  return isLoading ? (
+    <LoadingBox />
+  ) : error ? (
+    <MessageBox variant="danger">{getError(error as ApiError)}</MessageBox>
+  ) : (
     <Row>
-      {sampleProducts.map((product) => (
+      <Helmet>
+        <title>Prazon</title>
+      </Helmet>
+      {products!.map((product) => (
         <Col key={product.slug} sm={6} md={4} lg={3}>
-          <Link to={"./product/" + product.slug}>
-            <img
-              className="product_image"
-              src={product.image}
-              alt={product.name}
-            />
-            <h2>{product.name}</h2>
-            <p>${product.price}</p>
-          </Link>
+          <ProductItem product={product} />
         </Col>
       ))}
     </Row>
