@@ -33,4 +33,7 @@ const defaultDispatch: React.Dispatch<Action> = () => initialState
         reducer,
         initialState
     )
+        return <Store.Provider value={{state,dispatch}} {...props}/>
+  
  }
+ export {Store, StoreProvider}
